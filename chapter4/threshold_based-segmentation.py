@@ -1,6 +1,6 @@
 import cv2
 
-image = cv2.imread('/Users/cigrcham/Desktop/CodingWork/others/image_processing/image/img.png')
+image = cv2.imread('/Users/cigrcham/Desktop/CodingWork/others/image_processing/image/ahsdjkfasdf'.png')
 cv2.imshow('image', image)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 blurred = cv2.GaussianBlur(gray, (7, 7), 0)

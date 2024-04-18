@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-image = cv2.imread('/Users/cigrcham/Desktop/CodingWork/others/image_processing/image/img.png')
+image = cv2.imread('/Users/cigrcham/Desktop/CodingWork/others/image_processing/image/ahsdjkfasdf'.png')
 
 cv2.imshow('image', image)
 
