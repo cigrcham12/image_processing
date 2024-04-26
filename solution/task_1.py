@@ -24,54 +24,108 @@ import numpy as np
 # 1. (2 điểm) Hiển thị ảnh I.
 image = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing_test/image/origin.png')
 
-while 1:
-    cv2.imshow('origin', image)
-    if cv2.waitKey(20) & 0xff == 27:
-        break
+cv2.imshow('Origin', image)
+cv2.waitKey()
 
 # 2. (4 điểm) Chuyển ảnh mầu I sang ảnh đa cấp xám (grayscale) theo công thức xác định mức độ xám từ tổ hợp các thành
 # phần mầu (r,g,b) theo tỷ lệ (0.39,0.5,0.11),
 
-# def to_gray(I):
-#     Ig = 0.39 * I[:, :, 2] + 0.5 * I[:, :, 1] + 0.11 * I[:, :, 0]
-#     Ig = Ig.astype('uint8')
-#     return Ig
+"""
+Have three methods to convert iamge to grayscale: 
+* Lightness: Lấy giá trị trung bình của các thành phần có giấ trị cao nhất và thấp nhất: 
+* Average(Trung bình): Lấy giá trị trung bình của 3 thành phần đó(R, G, B) làm giá tị thang độ xám
+* Luminosity: Lấy giá trị trung bình có trọng số của các thành phần
+"""
 
-# gray_image = to_gray(image)
 
-gray_image = cv2.transform(image, np.array([[0.39, 0.5, 0.11]]))
-while 1:
-    cv2.imshow('origin', gray_image)
-    if cv2.waitKey(20) & 0xff == 27:
-        break
+# Luminosity
+def to_gray_luminosity(image_value):
+    R, G, B = cv2.split(image_value)
+    Ig = 0.39 * R + 0.5 * G + 0.11 * B
+    Ig = Ig.astype("uint8")
+    return Ig
 
-# 3. (1 điểm) Lấy biên của ảnh Ig theo phương pháp Canny được ảnh biên le là ảnh nhị phân nền đen. Hiển thị ảnh le.
-edges = cv2.Canny(gray_image, 100, 200)
 
-while 1:
-    cv2.imshow('Edges', edges)
-    if cv2.waitKey(20) & 0xff == 27:
-        break
+def to_gray_2_luminosity(image_value):
+    transformation_matrix = np.array([[0.39, 0.5, 0.11]])
+    Ig = cv2.transform(image_value, transformation_matrix)
+    Ig = Ig.astype("uint8")
+    return Ig
 
-# 4. (1 điểm) Kiểm tra pixel có tọa độ dòng y=160, cột x=326 có là điểm biên của ảnh Ig theo phép dò biên
-# Canny không?
-if edges[160, 326] != 0:
-    print("Pixel at (y=160, x=326) is an edge pixel detected by Canny.")
-else:
-    print("Pixel at (y=160, x=326) is not an edge pixel detected by Canny.")
+
+def to_gray_lightness(image_value):
+    R, G, B = cv2.split(image_value)
+    Ig = (np.maximum(R, np.maximum(G, B)) + np.minimum(R, np.minimum(G, B))) / 2
+    Ig = Ig.astype("uint8")
+    return Ig
+
+
+def to_gray_average(image_value):
+    R, G, B = cv2.split(image_value)
+    Ig = np.mean([R, G, B], axis=0)
+    Ig = Ig.astype("uint8")
+    return Ig
+
+
+Ig = to_gray_average(image)
+cv2.imshow('Gray scale', Ig)
+cv2.waitKey()
+
+# 3. (1 điểm) Lấy biên của ảnh Ig theo phương pháp Canny được ảnh biên Ie là ảnh nhị phân nền đen. Hiển thị ảnh le.
+"""
+    * Canny là một phương pháp bao gồm nhiều giai đoạn để phát hiện một loạt các cạnh trong hình ảnh
+"""
+
+
+def image_canny(image_value):
+    return cv2.Canny(image_value, 100, 200)
+
+
+Ie = image_canny(Ig)
+cv2.imshow('Canny', Ie)
+cv2.waitKey()
+
+
+# 4. (1 điểm) Kiểm tra pixel có tọa độ dòng y=160, cột x=326 có là điểm biên của ảnh Ig theo phép dò biên Canny không?
+def check_pixel_canny(image_value, x, y):
+    print(image_value[x, y])
+    # Check if the pixel value is non-zero, indicating an edge pixel detected by Canny
+    if image_value[x, y] != 0:
+        print(f"Pixel at [{x}, {y}] is an edge pixel detected by Canny.")
+    else:
+        print(f"Pixel at [{x}, {y}] is not an edge pixel detected by Canny.")
+    # # Fill color red for the pixel at position (x, y)
+    # modified_image = image_value.copy()
+    # modified_image[x, y] = (0, 0, 255)
+    # cv2.imshow('Check', modified_image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+
+check_pixel_canny(
+    image_value=Ie,
+    x=326,
+    y=160
+)
 
 # 5. (1 điệm) Nhị phân ảnh Ig theo ngưỡng Otsu được ảnh nhị phân nền đen được ảnh Ib. Hiển thị ảnh Ib.
-ret, ib = cv2.threshold(gray_image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+ret, Ib = cv2.threshold(Ig, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
 while 1:
-    cv2.imshow('Binary Image (Otsu)', ib)
+    cv2.imshow('Binary Image (Otsu)', Ib)
     if cv2.waitKey(20) & 0xff == 27:
         break
 
 # 6. (1 điêm) Xác định các đường contour của ảnh Ib, tìm giá trị max area là diện tích lớn nhất trong các con our
 # tren. Ve cac contours có diện tích > max _area/5.0 lên ảnh gốc I với mầu vàng bgr = (0,255,255).
+
 # Find contours in the binary image
-contours, _ = cv2.findContours(ib, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+contours, hierarchy = cv2.findContours(Ib, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+print('Number of Contours found = ' + str(len(contours)))
+#
+# cv2.drawContours(image, contours, -1, (0, 255, 0), 3)
+# cv2.imshow('Contours', image)
+# cv2.waitKey(0)
 
 # Initialize variables to store maximum area and corresponding contour
 max_area = 0
@@ -95,3 +149,9 @@ if max_area_contour is not None:
 cv2.imshow('Contours on Original Image', image)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+# while 1:
+#     cv2.imshow('Edges', image)
+#     if cv2.waitKey(20) & 0xff == 27:
+#         cv2.destroyAllWindows()
+#         break
