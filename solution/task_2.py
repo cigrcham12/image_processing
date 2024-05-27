@@ -16,7 +16,7 @@ import cv2
 import numpy as np
 from matplotlib import pyplot as plt
 
-I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing_test/image/origin.png')
+I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing/image/origin.png')
 cv2.imshow('Origin', I)
 
 # 1. (2 điểm) Hiển thị kênh B của ảnh I.

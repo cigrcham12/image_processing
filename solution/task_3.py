@@ -18,7 +18,7 @@ mâu RGB được ảnh I. Hiên thị lại ảnh I.
 import cv2
 import numpy as np
 
-I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing_test/image/origin.png')
+I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing/image/origin.png')
 
 # Câu 1: Hiển thị ảnh I
 cv2.imshow('Image I', I)

@@ -22,7 +22,7 @@ import numpy as np
 # tren. Ve cac contours có diện tích > max _area/5.0 lên ảnh gốc I với mầu vàng bgr = (0,255,255).
 
 # 1. (2 điểm) Hiển thị ảnh I.
-image = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing_test/image/origin.png')
+image = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing/image/origin.png')
 
 cv2.imshow('Origin', image)
 cv2.waitKey()

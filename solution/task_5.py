@@ -13,7 +13,7 @@ import cv2
 from matplotlib import pyplot as plt
 
 # Câu 1: Đọc ảnh màu 104.jpg vào biến ma trận I
-I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing_test/image/origin.png')
+I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing/image/origin.png')
 
 # Câu 1: Hiển thị tỷ lệ giữa giá trị độ cao và độ rộng của ảnh I
 height, width, _ = I.shape

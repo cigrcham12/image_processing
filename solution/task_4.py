@@ -13,7 +13,7 @@ import cv2
 import numpy as np
 
 # Câu 1: Hiển thị ảnh I
-I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing_test/image/origin.png')
+I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing/image/origin.png')
 cv2.imshow('Image I', I)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

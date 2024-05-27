@@ -18,7 +18,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 # Câu 1: Đọc ảnh mầu hat1.png vào biến ma trận I
-I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing_test/image/origin.png')
+I = cv2.imread('/Users/cigrcham/Desktop/CodingWork/Python/image_processing/image/origin.png')
 
 # Câu 1: Hiển thị ảnh I
 cv2.imshow('Image I', I)
