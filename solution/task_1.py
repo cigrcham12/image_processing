@@ -74,6 +74,12 @@ cv2.waitKey()
 # 3. (1 điểm) Lấy biên của ảnh Ig theo phương pháp Canny được ảnh biên Ie là ảnh nhị phân nền đen. Hiển thị ảnh le.
 """
     * Canny là một phương pháp bao gồm nhiều giai đoạn để phát hiện một loạt các cạnh trong hình ảnh
+    * Các bước của thuật toán Canny:
+- Giảm nhiễu(Gaussion, trung bình, trung vị, ...)
+- Tính toán Gradient độ xám của ảnh(nhân chập với mặt nạ Sobel)
+- Làm mỏng biên( Non-manimum suppression)
+- Ngưỡng kép(Double threshold)
+- Theo dõi cạnh bằng độ trễ( Edge Tracking by Hytesis)
 """
 
 
