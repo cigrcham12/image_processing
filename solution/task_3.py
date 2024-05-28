@@ -59,10 +59,15 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 # Câu 6: Tăng độ sáng của kênh V bằng phương pháp giãn mức xám
+# Tăng độ sáng của kênh V bằng phương pháp giãn mức xám
 V_channel = Ihsv[:, :, 2]  # Lấy kênh V
 V_channel_stretched = cv2.equalizeHist(V_channel)  # Giãn mức xám kênh V
 Ihsv[:, :, 2] = V_channel_stretched  # Cập nhật lại kênh V trong ảnh Ihsv
-I_rgb = cv2.cvtColor(Ihsv, cv2.COLOR_HSV2BGR)  # Chuyển đổi Ihsv về biểu diễn màu RGB
+
+# Chuyển đổi Ihsv về biểu diễn màu RGB
+I_rgb = cv2.cvtColor(Ihsv, cv2.COLOR_HSV2BGR)
+
+# Hiển thị ảnh đã tăng độ sáng
 cv2.imshow('Enhanced Image', I_rgb)
 cv2.waitKey(0)
 cv2.destroyAllWindows()

@@ -125,9 +125,19 @@ while 1:
 # 6. (1 điêm) Xác định các đường contour của ảnh Ib, tìm giá trị max area là diện tích lớn nhất trong các con our
 # tren. Ve cac contours có diện tích > max _area/5.0 lên ảnh gốc I với mầu vàng bgr = (0,255,255).
 
+
+# cv2.RETR_EXTERNAL: Tham số này xác định cách phát hiện các contour trong ảnh. Trong trường hợp này, RETR_EXTERNAL
+# chỉ định rằng chỉ các contour ngoài cùng (external) được tìm thấy và trả về. Các contour nằm bên trong contour lớn
+# hơn không được bao gồm. Điều này thường được sử dụng khi bạn quan tâm đến contour ngoài cùng của các đối tượng
+# trong ảnh. cv2.CHAIN_APPROX_NONE: Tham số này xác định cách biểu diễn các contour. Trong trường hợp này,
+
+# CHAIN_APPROX_NONE chỉ định rằng tất cả các điểm trên contour được lưu trữ mà không có sự xấp xỉ nào. Điều này làm
+# cho biểu diễn của contour có độ chi tiết cao nhất, bởi vì mỗi điểm trên contour sẽ được lưu trữ.
+
 # Find contours in the binary image
 contours, hierarchy = cv2.findContours(Ib, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 print('Number of Contours found = ' + str(len(contours)))
+
 #
 # cv2.drawContours(image, contours, -1, (0, 255, 0), 3)
 # cv2.imshow('Contours', image)
